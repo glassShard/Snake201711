@@ -11,6 +11,10 @@ namespace Snake201711.Models
     /// </summary>
     public class Snake
     {
+        /// <summary>
+        /// Mutatja, hogy a kígyó feje éppen merre áll
+        /// </summary>
+        public SnakeDirections Direction { get; set; }
         public int Length { get; set; }
     }
 }

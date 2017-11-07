@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace Snake201711.Models
@@ -74,6 +75,34 @@ namespace Snake201711.Models
         }
 
         /// <summary>
+        /// Ha leütjük valamelyik nyílgombot, akkor itt mnegérkezik
+        /// </summary>
+        /// <param name="key">jelzi, hogy melyik nyílgombot ütöttük le</param>
+        public void KeyDown(Key key)
+        {
+            //todo: ha úgy tetszik, házi feladat: hogy kell megoldani azt, ha a fejben ülünk, és csak jobbra/balra nyíllal vezérlünk?
+
+            //A leütött billenytű jelzi, hogy merre kell a kígyónak továbbmennie
+            switch (key)
+            {
+                case Key.Left:
+                    Snake.Direction = SnakeDirections.Left;
+                    break;
+                case Key.Right:
+                    Snake.Direction = SnakeDirections.Right;
+                    break;
+                case Key.Up:
+                    Snake.Direction = SnakeDirections.Up;
+                    break;
+                case Key.Down:
+                    Snake.Direction = SnakeDirections.Down;
+                    break;
+                default:
+                    throw new Exception($"Erre a gombra nem vagyunk felkészülve: {key}");
+            }
+        }
+
+        /// <summary>
         /// Ha a játéknak eljön a következő órajele, akkor ezt a függvényt hívjuk meg.
         /// </summary>
         /// <param name="sender"></param>
@@ -110,6 +139,7 @@ namespace Snake201711.Models
             MainWindow.LabelPoints.Content = $"Pontszám: {Points}";
             MainWindow.LabelEatenMealsCount.Content = $"Megevett ételek: {EatenMealsCount}";
             MainWindow.LabelSnakeLength.Content = $"Kígyó hossza: {Snake.Length}";
+            MainWindow.LabelKeyDown.Content = $"Irány: {Snake.Direction}";
         }
 
     }

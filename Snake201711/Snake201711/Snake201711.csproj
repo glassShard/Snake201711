@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Models\Arena.cs" />
     <Compile Include="Models\Snake.cs" />
+    <Compile Include="Models\SnakeDirections.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
