@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Snake201711.Models
@@ -47,6 +48,16 @@ namespace Snake201711.Models
         private Snake Snake;
 
         /// <summary>
+        /// Az ételek listája, amit a kígyó aktuálisan megehet
+        /// </summary>
+        private List<GamePoint> Meals;
+
+        /// <summary>
+        /// Véletlenszámgenerátor
+        /// </summary>
+        private Random randomNumberGenerator;
+
+        /// <summary>
         /// Arena konstruktor, létrehozáskor megkapja a megjelenítő ablakot
         /// </summary>
         /// <param name="mainWindow">Az ablak, ami megjeleníti a játék menetét</param>
@@ -63,7 +74,49 @@ namespace Snake201711.Models
         public void Start()
         {
             SetNewGameCounters();
+            SetMealsForStart();
             GameTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(100), DispatcherPriority.Normal, ItIsTimeForShow, Application.Current.Dispatcher);
+        }
+
+        private void SetMealsForStart()
+        {
+            Meals = new List<GamePoint>();
+
+            randomNumberGenerator = new Random();
+
+
+            //ez így már működik, de_
+            //1. a kibányászás kelleni fog majd, így jó lenne kiszervezni egy függvénybe
+            //2. most nem kezeljük, hogyha olyan helyre tesszük a csillagot, ahol már van
+            //3. A megjelenítést is érdemes lenn kiszervezni.
+            for (int i = 0; i < ArenaSettings.MealsCountForStart; i++)
+            {
+                var x = randomNumberGenerator.Next(1, ArenaSettings.MaxX);
+                var y = randomNumberGenerator.Next(1, ArenaSettings.MaxY);
+
+                var meal = new GamePoint(x: x, y: y);
+
+                //megjelenítés
+                //midegyik sor 20 (MaxX) elemből áll, tehát úgy tudom megtalálni az adott 
+                //koordinátát, hogy pl. a harmadik sorban lévő 5 elemhez elmegyek 2*20=40 elemet (2=3-1), 
+                //majd elindulok a soron belül, és az első elemtől még lépek 4-et (4=5-1)
+                var child = MainWindow.GridArena.Children[(meal.Y - 1) * ArenaSettings.MaxX + (meal.X - 1)];
+
+                //Ez a Children gyűjtemén un. UIElement-ekből áll, ebbe van becsomagolva minden felületi megjelenítő
+                //ahhoz, hogy kibányásszuk a benne lévő ImageAwesome vezérlőt, el kell kérnünk a változótól:
+                //ezt az eléírt zárójeles típussal tudjuk megtenni
+                //a második zárójel azért kell, hogy először ezt a "kibányászást" hajtsa végre, aztán
+                //menjen tovább, mert így már van Icon property-nk
+                ((FontAwesome.WPF.ImageAwesome)child).Icon = FontAwesome.WPF.FontAwesomeIcon.Star;
+                ((FontAwesome.WPF.ImageAwesome)child).Foreground = Brushes.Red;
+                ((FontAwesome.WPF.ImageAwesome)child).Spin = true;
+                ((FontAwesome.WPF.ImageAwesome)child).SpinDuration = 5;
+
+
+                //hozzáadni a listához
+                Meals.Add(meal);
+            }
+
         }
 
         /// <summary>
