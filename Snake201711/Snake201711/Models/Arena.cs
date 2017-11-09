@@ -272,6 +272,42 @@ namespace Snake201711.Models
             //frissíteni a játékidőt
             PlayTime = PlayTime.Add(TimeSpan.FromMilliseconds(100));
 
+            //játékmenet frissítése
+
+            //a kígyó feje mozog a kijelölt irányba
+            var oldHead = Snake.GamePoints[0];
+            GamePoint newHead = null;
+            switch (Snake.Direction)
+            {
+                case SnakeDirections.None:
+                    break;
+                case SnakeDirections.Left:
+                    newHead = new GamePoint(oldHead.X - 1, oldHead.Y);
+                    break;
+                case SnakeDirections.Right:
+                    newHead = new GamePoint(oldHead.X + 1, oldHead.Y);
+                    break;
+                case SnakeDirections.Up:
+                    newHead = new GamePoint(oldHead.X, oldHead.Y - 1);
+                    break;
+                case SnakeDirections.Down:
+                    newHead = new GamePoint(oldHead.X, oldHead.Y + 1);
+                    break;
+                default:
+                    throw new Exception($"Erre nem vagyunk felkészülve: {Snake.Direction}");
+            }
+
+            //le kell elenőrizni, hogy 
+            //saját magába harapott-e?
+
+            //le kell elenőrizni, hogy 
+            //nekimentünk-e a falnak?
+
+            //le kell elenőrizni, hogy 
+            //megettünk-e ételt?
+
+            //megjeleníteni a kígyó új helyzetét
+
             //kiírni a képernyőre
             ShowGameCounters();
         }
