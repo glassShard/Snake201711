@@ -20,6 +20,12 @@ namespace Snake201711.Models
         /// A kígyó pontjait tartalmazó lista
         /// </summary>
         public List<GamePoint> GamePoints { get; set; }
+
+        /// <summary>
+        /// A kígyó hossza
+        /// 
+        /// todo: házi feladat, ez működjön valahogy
+        /// </summary>
         public int Length { get; set; }
     }
 }

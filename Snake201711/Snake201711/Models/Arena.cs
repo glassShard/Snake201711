@@ -130,33 +130,36 @@ namespace Snake201711.Models
             //todo: házi feladat: ezt hogyan tudjuk tesztelni, hogy csak olyan helyekre teszünk, ami még nincs kiosztva
             while (Meals.Count<ArenaSettings.MealsCountForStart)
             { //addig megyünk, amíg sikerül kirakni valamennyi ételt
-
-                //todo: miért nem teszünk ételt az utolsó sorba és oszlopba??
-                var meal = GetRandomGamePoint();
-
-                //Az Any függvény igazat ad, ha bármelyik elemre 
-                //a lambda függvény igazat ad
-                //vagyis, a meal koordinátáival már szerepel étel a listán
-                //ezt megfordítjuk a "!"-lel, 
-                //vagyis csak akkor igaz a kifejezés, ha a meal koordinátái MÉG NEM 
-                //szerepelnek a listán
-                if (!Meals.Any(gamePoint =>
-                        gamePoint.X == meal.X
-                        && gamePoint.Y == meal.Y)
-                    && //és nem szerepel a koordináta a kígyó pontjai között sem
-                    !Snake.GamePoints.Any(gamePoint =>
-                        gamePoint.X == meal.X
-                        && gamePoint.Y == meal.Y)
-                )
-                { //Csak akkor, ha az étel még nincs a táblán
-                  //megjelenítés
-                    ShowMeal(meal);
-
-                    //hozzáadni a listához
-                    Meals.Add(meal);
-                }
+                GetNewMeal();
             }
 
+        }
+
+        private void GetNewMeal()
+        {
+            var meal = GetRandomGamePoint();
+
+            //Az Any függvény igazat ad, ha bármelyik elemre 
+            //a lambda függvény igazat ad
+            //vagyis, a meal koordinátáival már szerepel étel a listán
+            //ezt megfordítjuk a "!"-lel, 
+            //vagyis csak akkor igaz a kifejezés, ha a meal koordinátái MÉG NEM 
+            //szerepelnek a listán
+            if (!Meals.Any(gamePoint =>
+                    gamePoint.X == meal.X
+                    && gamePoint.Y == meal.Y)
+                && //és nem szerepel a koordináta a kígyó pontjai között sem
+                !Snake.GamePoints.Any(gamePoint =>
+                    gamePoint.X == meal.X
+                    && gamePoint.Y == meal.Y)
+            )
+            { //Csak akkor, ha az étel még nincs a táblán
+              //megjelenítés
+                ShowMeal(meal);
+
+                //hozzáadni a listához
+                Meals.Add(meal);
+            }
         }
 
         /// <summary>
@@ -165,6 +168,8 @@ namespace Snake201711.Models
         /// <returns></returns>
         private GamePoint GetRandomGamePoint()
         {
+            //todo: miért nem teszünk ételt az utolsó sorba és oszlopba??
+
             var x = randomNumberGenerator.Next(1, ArenaSettings.MaxX);
             var y = randomNumberGenerator.Next(1, ArenaSettings.MaxY);
 
@@ -186,6 +191,19 @@ namespace Snake201711.Models
         }
 
         /// <summary>
+        /// Eltüntetjük az ételt a tábláról
+        /// </summary>
+        /// <param name="meal"></param>
+        private void HideMeal(GamePoint meal)
+        {
+            var child = GetGridArenaCell(meal);
+            child.Icon = FontAwesome.WPF.FontAwesomeIcon.SquareOutline;
+            child.Foreground = Brushes.Black;
+            child.Spin = false;
+            child.SpinDuration = 1;
+        }
+
+        /// <summary>
         /// A kígyó fejének megjelenítése
         /// </summary>
         /// <param name="head"></param>
@@ -204,6 +222,17 @@ namespace Snake201711.Models
             var child = GetGridArenaCell(tail);
             child.Icon = FontAwesome.WPF.FontAwesomeIcon.Circle;
             child.Foreground = Brushes.Blue;
+        }
+
+        /// <summary>
+        /// A kígyó farka végének eltüntetése
+        /// </summary>
+        /// <param name="tailEnd"></param>
+        private void HideSnakeTail(GamePoint tailEnd)
+        {
+            var child = GetGridArenaCell(tailEnd);
+            child.Icon = FontAwesome.WPF.FontAwesomeIcon.SquareOutline;
+            child.Foreground = Brushes.Black;
         }
 
         /// <summary>
@@ -231,6 +260,7 @@ namespace Snake201711.Models
         /// </summary>
         public void Stop()
         {
+            //todo: ezt jobban kidolgozni
             GameTimer.Stop();
         }
 
@@ -297,19 +327,64 @@ namespace Snake201711.Models
                     throw new Exception($"Erre nem vagyunk felkészülve: {Snake.Direction}");
             }
 
+            if (newHead==null)
+            { // nincs új fej, nincs mit tenni
+                return;
+            }
+
             //le kell elenőrizni, hogy 
             //saját magába harapott-e?
+            if (Snake.GamePoints.Any(gp=>gp.X==newHead.X && gp.Y == newHead.Y))
+            { // magába harapott
+                GameOver();
+            }
 
             //le kell elenőrizni, hogy 
             //nekimentünk-e a falnak?
+            if (newHead.X == 0 || newHead.Y == 0 || newHead.X == ArenaSettings.MaxX || newHead.Y == ArenaSettings.MaxY)
+            { // nekiment a falnak
+                GameOver();
+            }
 
             //le kell elenőrizni, hogy 
             //megettünk-e ételt?
+            var isEated = Meals.Any(gp => gp.X == newHead.X && gp.Y == newHead.Y);
+            if (isEated)
+            { // ételt ettünk
+
+                //méghozzá ezt
+                var meal = Meals.Single(gp => gp.X == newHead.X && gp.Y == newHead.Y);
+                HideMeal(meal);
+                GetNewMeal();
+
+                //todo: pontot számolni
+            }
 
             //megjeleníteni a kígyó új helyzetét
+            //régi fej már farok, hiszen a kígyó továbbcsúszott
+            ShowSnakeTail(oldHead);
+
+            //ha nem evett, akkor a farok végét eltüntetni
+            if (!isEated)
+            {
+                var tailEnd = Snake.GamePoints[Snake.GamePoints.Count - 1];
+                HideSnakeTail(tailEnd);
+                Snake.GamePoints.Remove(tailEnd);
+            }
+
+            //új fejet hozzáadjuk a kígyóhoz
+            //a lista legelejére
+            Snake.GamePoints.Insert(0, newHead);
+            ShowSnakeHead(newHead);
 
             //kiírni a képernyőre
             ShowGameCounters();
+        }
+
+        private void GameOver()
+        {
+            //todo: házi feladat
+            throw new NotImplementedException();
         }
 
         /// <summary>
