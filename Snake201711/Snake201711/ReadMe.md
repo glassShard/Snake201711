@@ -59,3 +59,6 @@ egyre nehezebb: elkerülni a saját kígyónkat, és nem beleütközni a falba.
 |                                         |  +-------+------+ |
 +-----------------------------------------+-------------------+
 ```
+
+## Játéktér kialakítása XAML-ben
+egy 20x20-as hálózatot húzunk ki
