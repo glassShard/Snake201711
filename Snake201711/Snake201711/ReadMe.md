@@ -70,3 +70,8 @@ A telepítés három dolgot végez el:
 - letölti a csomagot a Solution mappa Packages könyvtárjába
 - létrehoz egy hivatkozást a projektünkbe ami a megfelelő dll-t a packages mappából meghivatkozza.
 
+a középső 20x20-as részt feltöltjük ikonokkal
+
+ahhoz, hogy az ikonokat az XAML-ben használni tudjuk, kell a névtér hivatkozás a definícióba. XAML névtérhovatkozás kell: ami valójában XML névtér hivatkozás: xmlns, vagyis xml name space.
+
+Ezt legegyszerűbb lelopni a nuget csomagnak a doksijából ([a githubról](https://github.com/charri/Font-Awesome-WPF/blob/master/README-WPF.md))
