@@ -61,4 +61,12 @@ egyre nehezebb: elkerülni a saját kígyónkat, és nem beleütközni a falba.
 ```
 
 ## Játéktér kialakítása XAML-ben
-egy 20x20-as hálózatot húzunk ki
+egy 20x20-as hálózatot húzunk ki, ami valójában 22x22, ennek az az értelme, hogy az első és az utolsó sor (és oszlop) valójában a fal, ha mozgatjuk a kígyót, akkor nem kell azzal törődnünk, hogy mozoghat-e, mert egyet még tudunk lépni a látható tábláról: ekkor a falba mozogtunk, de ehhez nem kell esetszétválasztás.
+
+A megjelenítéskor a [FontAwesome ikonkészletet](http://fontawesome.io/icons/) használjuk, ehhez a megfelelő nuget csomagot telepítjük ([FontAwesome.WPF](https://www.nuget.org/packages/FontAwesome.WPF/))
+
+A telepítés három dolgot végez el:
+- beírja magát a packages.config könyvtárba
+- letölti a csomagot a Solution mappa Packages könyvtárjába
+- létrehoz egy hivatkozást a projektünkbe ami a megfelelő dll-t a packages mappából meghivatkozza.
+
