@@ -19,12 +19,12 @@ namespace Snake201711.Models
         /// <summary>
         /// Megevett ételek száma
         /// </summary>
-        public int EatenMealsCount { get; set; } = 0;
+        public int EatenMealsCount { get; private set; } = 0;
 
         /// <summary>
         /// Elért pontszám
         /// </summary>
-        public int Points { get; set; } = 0;
+        public int Points { get; private set; } = 0;
 
         /// <summary>
         /// A kígyó pontjait tartalmazó lista
