@@ -81,5 +81,17 @@ Ezt legegyszerűbb lelopni a nuget csomagnak a doksijából ([a githubról](http
 - Hibajavítás, 
   - az utolsó sorba és oszlopba nem teszünk semmit, 
   - illetve, az utolsó sorba és az utolsó oszlopba nem tudom a kígyót kormányozni
+  - egyre több étel kerül ki a táblára
+    - Egy hibabejelentés kötelező részei
+      - (lehetőleg a legrövidebb) lépéssorozat, amivel a hibát reprodukálni lehet
+      - a hibajelenség leírása
+      - mi lenne az elvárt működése a programnak
+    - Ebben az esetben
+      - egyelőre nem sikerült reprodukálni a hibát, azonban, ha a kígyó új feje helyére vagy a régi farka 
+        helyére generálódik az új étel, akkor ott lehet probléma
+- az ételeket és a kígyót "objektumosítani"
+  - 
+- Game Over
+- Beülni a kígyó fejébe
 
 

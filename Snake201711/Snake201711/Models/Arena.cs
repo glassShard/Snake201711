@@ -361,6 +361,13 @@ namespace Snake201711.Models
                 GameOver();
             }
 
+            //új fejet hozzáadjuk a kígyóhoz
+            //a lista legelejére. Ha itt adjuk hozzá az új fejet, akkor
+            //benne lesz a Snake.GamePoints listában és az étel generálás már 
+            //figyelembe veszi.
+            Snake.GamePoints.Insert(0, newHead);
+            ShowSnakeHead(newHead);
+
             //le kell elenőrizni, hogy 
             //megettünk-e ételt?
             var isEated = Meals.Any(gp => gp.X == newHead.X && gp.Y == newHead.Y);
@@ -386,11 +393,6 @@ namespace Snake201711.Models
                 HideSnakeTail(tailEnd);
                 Snake.GamePoints.Remove(tailEnd);
             }
-
-            //új fejet hozzáadjuk a kígyóhoz
-            //a lista legelejére
-            Snake.GamePoints.Insert(0, newHead);
-            ShowSnakeHead(newHead);
 
             //kiírni a képernyőre
             ShowGameCounters();
