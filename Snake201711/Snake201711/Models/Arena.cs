@@ -58,6 +58,11 @@ namespace Snake201711.Models
         private Random randomNumberGenerator = new Random();
 
         /// <summary>
+        /// Ezzel szabályozzuk, hogy egyszerre csak egy megjelenítés fusson
+        /// </summary>
+        private bool IsInShow=false;
+
+        /// <summary>
         /// Arena konstruktor, létrehozáskor megkapja a megjelenítő ablakot
         /// </summary>
         /// <param name="mainWindow">Az ablak, ami megjeleníti a játék menetét</param>
@@ -311,6 +316,14 @@ namespace Snake201711.Models
         /// <param name="e"></param>
         private void ItIsTimeForShow(object sender, EventArgs e)
         {
+            //mivel 100 millisec-enként hívjuk ezt a függvényt, egyszerre nem 
+            //érkezhet ide két végrehajtás, ezért ez jó megoldás
+            if (IsInShow)
+            {
+                return;
+            }
+            IsInShow = true;
+
             //frissíteni a játékidőt
             PlayTime = PlayTime.Add(TimeSpan.FromMilliseconds(100));
 
@@ -341,6 +354,7 @@ namespace Snake201711.Models
 
             if (newHead==null)
             { // nincs új fej, nincs mit tenni
+                IsInShow = false;
                 return;
             }
 
@@ -396,6 +410,7 @@ namespace Snake201711.Models
 
             //kiírni a képernyőre
             ShowGameCounters();
+            IsInShow = false;
         }
 
         private void GameOver()
