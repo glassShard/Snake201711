@@ -17,6 +17,16 @@ namespace Snake201711.Models
         public SnakeDirections Direction { get; set; }
 
         /// <summary>
+        /// Megevett ételek száma
+        /// </summary>
+        public int EatenMealsCount { get; set; } = 0;
+
+        /// <summary>
+        /// Elért pontszám
+        /// </summary>
+        public int Points { get; set; } = 0;
+
+        /// <summary>
         /// A kígyó pontjait tartalmazó lista
         /// 
         /// ha lehet, ne használjunk null értéket: mindig inicializáljuk, ha mást nem egy üres listával
@@ -44,6 +54,16 @@ namespace Snake201711.Models
 
                 return GamePoints.Count;
             }
+        }
+
+        /// <summary>
+        /// A kígyó eszik
+        /// </summary>
+        /// <param name="meal">megevett étel</param>
+        public void Eat(GamePoint meal)
+        {
+            EatenMealsCount = EatenMealsCount + 1;
+            Points = Points + 1;
         }
 
         ///Property tulajdonságai (a field-hez viszonyított további lehetőségei)
