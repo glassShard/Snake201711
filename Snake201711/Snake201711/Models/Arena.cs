@@ -380,11 +380,12 @@ namespace Snake201711.Models
 
                 //méghozzá ezt
                 var meal = Meals.Single(gp => gp.X == newHead.X && gp.Y == newHead.Y);
-                //todo: HIBA: ezt az ételt sosem vesszük le az ételek listájáról
 
                 Snake.Eat(meal);
 
+                Meals.Remove(meal);
                 HideMeal(meal);
+
                 GetNewMeal();
 
                 //todo: pontot számolni

@@ -92,6 +92,7 @@ Ezt legegyszerűbb lelopni a nuget csomagnak a doksijából ([a githubról](http
       - következő tipp: minél hosszabb a kígyó, annál tovább tart a feldolgozás, illetve, a 100 milisecundum
         lehet, hogy nem elég, így többször is meghívódik a megjelenítő függvény úgy, hogy az előző nem ért véget
       - nem sikerült a megoldás, így az első lépés még mindig a reprodukálni képes lépéssorozat meghatározása
+      - elképzelhető, hogy a hiba okát most megszüntettük: nem töröltük az ételt az ételek listájából csak eltüntettük
 
 - az ételeket és a kígyót "objektumosítani"
   - 
