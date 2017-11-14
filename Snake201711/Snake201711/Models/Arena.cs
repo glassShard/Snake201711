@@ -127,8 +127,19 @@ namespace Snake201711.Models
         {
             Meals = new List<GamePoint>();
 
+            ////tesztelünk, a négy sarokban elhelyezek négy ételt, hogy jól látszik-e?
+            //Meals.Add(new GamePoint(1, 1));
+            //Meals.Add(new GamePoint(1, 20));
+            //Meals.Add(new GamePoint(20, 1));
+            //Meals.Add(new GamePoint(20, 20));
+
+            //foreach (var meal in Meals)
+            //{
+            //    ShowMeal(meal);
+            //}
+
             //todo: házi feladat: ezt hogyan tudjuk tesztelni, hogy csak olyan helyekre teszünk, ami még nincs kiosztva
-            while (Meals.Count<ArenaSettings.MealsCountForStart)
+            while (Meals.Count < ArenaSettings.MealsCountForStart)
             { //addig megyünk, amíg sikerül kirakni valamennyi ételt
                 GetNewMeal();
             }
@@ -168,10 +179,11 @@ namespace Snake201711.Models
         /// <returns></returns>
         private GamePoint GetRandomGamePoint()
         {
-            //todo: miért nem teszünk ételt az utolsó sorba és oszlopba??
-
-            var x = randomNumberGenerator.Next(1, ArenaSettings.MaxX);
-            var y = randomNumberGenerator.Next(1, ArenaSettings.MaxY);
+            //a random intervallum felső határa nincs a kiosztott számok között
+            //ezért hozzáadok a lehetséges maximumhoz egyet, hogy a maximumot is 
+            //kiossza
+            var x = randomNumberGenerator.Next(1, ArenaSettings.MaxX+1);
+            var y = randomNumberGenerator.Next(1, ArenaSettings.MaxY+1);
 
             var gamePoint = new GamePoint(x: x, y: y);
             return gamePoint;
@@ -341,7 +353,10 @@ namespace Snake201711.Models
 
             //le kell elenőrizni, hogy 
             //nekimentünk-e a falnak?
-            if (newHead.X == 0 || newHead.Y == 0 || newHead.X == ArenaSettings.MaxX || newHead.Y == ArenaSettings.MaxY)
+            //azért tettük be az első és utolsó sort + oszlopot, hogy
+            //azok jelentsék a falat. Tehát a 0. és a Max+1. sor és oszlop
+            //a fal
+            if (newHead.X == 0 || newHead.Y == 0 || newHead.X == ArenaSettings.MaxX+1 || newHead.Y == ArenaSettings.MaxY+1)
             { // nekiment a falnak
                 GameOver();
             }

@@ -75,3 +75,11 @@ a középső 20x20-as részt feltöltjük ikonokkal
 ahhoz, hogy az ikonokat az XAML-ben használni tudjuk, kell a névtér hivatkozás a definícióba. XAML névtérhovatkozás kell: ami valójában XML névtér hivatkozás: xmlns, vagyis xml name space.
 
 Ezt legegyszerűbb lelopni a nuget csomagnak a doksijából ([a githubról](https://github.com/charri/Font-Awesome-WPF/blob/master/README-WPF.md))
+
+
+## Tennivalók (2017.11.14)
+- Hibajavítás, 
+  - az utolsó sorba és oszlopba nem teszünk semmit, 
+  - illetve, az utolsó sorba és az utolsó oszlopba nem tudom a kígyót kormányozni
+
+
