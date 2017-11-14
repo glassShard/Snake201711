@@ -386,9 +386,10 @@ namespace Snake201711.Models
                 Meals.Remove(meal);
                 HideMeal(meal);
 
-                GetNewMeal();
-
-                //todo: pontot számolni
+                while (Meals.Count < ArenaSettings.MealsCountForStart)
+                { //addig megyünk, amíg minden étel megvan, ez jelen esetben mindig az utolsó
+                    GetNewMeal();
+                }
             }
 
             //megjeleníteni a kígyó új helyzetét
