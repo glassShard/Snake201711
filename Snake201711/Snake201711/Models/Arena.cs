@@ -40,7 +40,7 @@ namespace Snake201711.Models
         /// <summary>
         /// Az ételek listája, amit a kígyó aktuálisan megehet
         /// </summary>
-        private List<GamePoint> Meals = null;
+        private List<Meal> Meals = null;
 
         /// <summary>
         /// Véletlenszámgenerátor, az aréna létrejöttekor egyből létre is hozzuk
@@ -90,7 +90,7 @@ namespace Snake201711.Models
 
 
             //generáljuk a kígyó fejét
-            var head = GetRandomGamePoint();
+            var head = GetRandomMeal();
             Snake.GamePoints.Add(head);
 
 
@@ -120,7 +120,7 @@ namespace Snake201711.Models
 
         private void SetMealsForStart()
         {
-            Meals = new List<GamePoint>();
+            Meals = new List<Meal>();
 
             ////tesztelünk, a négy sarokban elhelyezek négy ételt, hogy jól látszik-e?
             //Meals.Add(new GamePoint(1, 1));
@@ -143,7 +143,7 @@ namespace Snake201711.Models
 
         private void GetNewMeal()
         {
-            var meal = GetRandomGamePoint();
+            var meal = GetRandomMeal();
 
             //Az Any függvény igazat ad, ha bármelyik elemre 
             //a lambda függvény igazat ad
@@ -172,7 +172,7 @@ namespace Snake201711.Models
         /// Kijelöl egy véletlen pontot a táblán
         /// </summary>
         /// <returns></returns>
-        private GamePoint GetRandomGamePoint()
+        private Meal GetRandomMeal()
         {
             //a random intervallum felső határa nincs a kiosztott számok között
             //ezért hozzáadok a lehetséges maximumhoz egyet, hogy a maximumot is 
@@ -180,8 +180,8 @@ namespace Snake201711.Models
             var x = randomNumberGenerator.Next(1, ArenaSettings.MaxX+1);
             var y = randomNumberGenerator.Next(1, ArenaSettings.MaxY+1);
 
-            var gamePoint = new GamePoint(x: x, y: y);
-            return gamePoint;
+            var meal = new Meal(x: x, y: y);
+            return meal;
         }
 
         /// <summary>

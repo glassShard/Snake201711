@@ -17,12 +17,12 @@ namespace Snake201711.Models
         public SnakeDirections Direction { get; set; }
 
         /// <summary>
-        /// Megevett ételek száma
+        /// Megevett ételek száma, csak az osztályon belülről módosítható
         /// </summary>
         public int EatenMealsCount { get; private set; } = 0;
 
         /// <summary>
-        /// Elért pontszám
+        /// Elért pontszám, csak az osztályon belülről módosítható
         /// </summary>
         public int Points { get; private set; } = 0;
 
@@ -60,10 +60,10 @@ namespace Snake201711.Models
         /// A kígyó eszik
         /// </summary>
         /// <param name="meal">megevett étel</param>
-        public void Eat(GamePoint meal)
+        public void Eat(Meal meal)
         {
             EatenMealsCount = EatenMealsCount + 1;
-            Points = Points + 1;
+            Points = Points + meal.Points;
         }
 
         ///Property tulajdonságai (a field-hez viszonyított további lehetőségei)
@@ -76,7 +76,5 @@ namespace Snake201711.Models
         /// private set: csak osztályon belül használható
         /// 
         /// ráadásul a működése implementálható: saját kóddal adhatjuk meg, hogy mit tegyen
-
-
     }
 }

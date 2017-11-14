@@ -76,6 +76,7 @@
     <Compile Include="Models\Arena.cs" />
     <Compile Include="Models\ArenaSettings.cs" />
     <Compile Include="Models\GamePoint.cs" />
+    <Compile Include="Models\Meal.cs" />
     <Compile Include="Models\Snake.cs" />
     <Compile Include="Models\SnakeDirections.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -95,6 +96,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Design\ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

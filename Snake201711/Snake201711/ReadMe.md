@@ -95,8 +95,59 @@ Ezt legegyszerűbb lelopni a nuget csomagnak a doksijából ([a githubról](http
       - elképzelhető, hogy a hiba okát most megszüntettük: nem töröltük az ételt az ételek listájából csak eltüntettük
 
 - az ételeket és a kígyót "objektumosítani"
-  - 
+  - pontok és megevett ételek számítása
+  - pontszámítás az étel pontok alapján
 - Game Over
 - Beülni a kígyó fejébe
+
+
+## Objektum leszármaztatása
+
+```
+Osztály leszármaztatásának jelölése
++----------+                        +-------------+
+|   Meal   |                        |  GamePoint  |
+|----------|                        |-------------|
+|          |                        |             |
+| Points   | +--------------------> | X           |
+|          |                        | Y           |
+|          |                        |             |
+|          |                        |             |
++----------+                        +-------------+
+
++-----------------+
+|   Meal          |
+|-----------------|
+|                 |
+|  Points         |
+|                 | +--------------+
+|                 | | GamePoint    |
+|                 | |--------------|
+|  X +--------------> X            |
+|  Y +--------------> Y            |
++-----------------+ +--------------+
+```
+Amikor leszármaztatott osztályból példányosítunk (például var akarmi = new Meal(); ) akkor MINDIG példányosodik az ősosztályból is egy példány (base). Így az új tulajdonságokat (Meal.Points) a leszármaztatott osztály implementálja, az eredeti tulajdonságokat (GamePoint.X és Y) pedig ez az "árnyék" ősosztálypéldány.
+
+HA az ősosztálynak van saját nem triviális (paraméter nélküli) konstruktora
+
+pl.:
+
+```csharp
+public GamePoint(int x, int y)
+{
+    X = x;
+    Y = y;
+}
+```
+
+AKKOR a leszármaztatott osztálnak ezt a konstruktort meg kell hívnia valahogy:
+
+```csharp
+public Meal(int x, int y) //paraméterek átvétele az ősosztály konstruktorához
+        : base(x, y)  //ősosztály konstruktor meghívása
+{ }
+```
+
 
 
