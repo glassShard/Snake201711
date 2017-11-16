@@ -57,6 +57,28 @@ namespace Snake201711.Models
         }
 
         /// <summary>
+        /// Visszaadja a kígyó fejét
+        /// </summary>
+        public GamePoint Head
+        {
+            get
+            {
+                return GamePoints[0];
+            }
+        }
+
+        /// <summary>
+        /// A kígyó "nyaka": a fej utáni első farokrész
+        /// </summary>
+        public GamePoint Neck
+        {
+            get
+            {
+                return GamePoints[1];
+            }
+        }
+
+        /// <summary>
         /// A kígyó eszik
         /// </summary>
         /// <param name="meal">megevett étel</param>

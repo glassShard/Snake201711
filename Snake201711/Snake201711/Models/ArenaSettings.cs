@@ -26,5 +26,11 @@
         /// </summary>
         public static int MaxY { get; } = 20;
 
+
+        /// <summary>
+        /// Megmondja, hogy a kígyó fejében ülünk (true), 
+        /// vagy kívülről nézve irányítjuk a játékot (false
+        /// </summary>
+        public static bool IsSittingInTheHeadOfSnake { get; } = false;
     }
 }

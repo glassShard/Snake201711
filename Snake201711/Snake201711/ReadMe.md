@@ -97,9 +97,6 @@ Ezt legegyszerűbb lelopni a nuget csomagnak a doksijából ([a githubról](http
 - az ételeket és a kígyót "objektumosítani"
   - pontok és megevett ételek számítása
   - pontszámítás az étel pontok alapján
-- Game Over
-- Beülni a kígyó fejébe
-
 
 ## Objektum leszármaztatása
 
@@ -149,5 +146,8 @@ public Meal(int x, int y) //paraméterek átvétele az ősosztály konstruktorá
 { }
 ```
 
+## Extra alkalom todo
+- Game Over
+- Beülni a kígyó fejébe
 
 
