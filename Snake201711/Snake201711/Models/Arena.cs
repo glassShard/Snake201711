@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Snake201711.Models
@@ -52,6 +54,10 @@ namespace Snake201711.Models
         /// </summary>
         private bool IsInShow=false;
         private bool IsGameInProgress;
+
+        //A vászonra rajzolt kép egységei 
+        private double EllipseWidth = 10;
+        private double EllipseHeight = 10;
 
         /// <summary>
         /// Arena konstruktor, létrehozáskor megkapja a megjelenítő ablakot
@@ -214,10 +220,7 @@ namespace Snake201711.Models
             )
             { //Csak akkor, ha az étel még nincs a táblán
               //megjelenítés
-                ShowMeal(meal);
-
-                //hozzáadni a listához
-                Meals.Add(meal);
+                CreateMeal(meal);
             }
         }
 
@@ -241,13 +244,35 @@ namespace Snake201711.Models
         /// Megjelenítjük az ételt a táblán
         /// </summary>
         /// <param name="meal"></param>
-        private void ShowMeal(GamePoint meal)
+        private void CreateMeal(Meal meal)
         {
             var child = GetGridArenaCell(meal);
             child.Icon = FontAwesome.WPF.FontAwesomeIcon.Star;
             child.Foreground = Brushes.Red;
             child.Spin = true;
             child.SpinDuration = 5;
+
+            //hozzáadni a listához
+            Meals.Add(meal);
+
+            //Kirakjuk a Canvas-ra is
+
+            //létrehozzuk
+            var paint = new Ellipse();
+
+            //megformázzuk
+            paint.Fill = Brushes.OrangeRed;
+            //todo: a méretezést a képernyőhöz igazítani
+            paint.Height = EllipseHeight;
+            paint.Width = EllipseWidth;
+
+            //összehangoljuk a vászonnal
+            Canvas.SetTop(paint, meal.Y * EllipseHeight);
+            Canvas.SetLeft(paint, meal.X * EllipseWidth);
+
+            //kirakjuk a vászonra
+            MainWindow.CanvasArena.Children.Add(paint);
+
         }
 
         /// <summary>
@@ -263,6 +288,8 @@ namespace Snake201711.Models
             child.Foreground = Brushes.Black;
             child.Spin = false;
             child.SpinDuration = 1;
+
+
         }
 
         /// <summary>
