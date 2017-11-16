@@ -149,7 +149,7 @@ public Meal(int x, int y) //paraméterek átvétele az ősosztály konstruktorá
 ## Extra alkalom todo
 - [X] Beülni a kígyó fejébe
 - [X] Static magyarázat
-- [ ] Game Over
+- [X] Game Over
 - [ ] Canvas kezelés (grafikus megoldás)
 
 

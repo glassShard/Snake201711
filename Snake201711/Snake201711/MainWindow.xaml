@@ -19,13 +19,15 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Label Grid.Row="0" x:Name="LabelPoints" />
             <Label Grid.Row="1" x:Name="LabelEatenMealsCount"/>
             <Label Grid.Row="2" x:Name="LabelSnakeLength"/>
             <Label Grid.Row="3" x:Name="LabelPlayTime"/>
-            <Button Grid.Row="4" 
+            <Label Grid.Row="4" x:Name="LabelGameOver" FontSize="30"/>
+            <Button Grid.Row="5" 
                     x:Name="ButtonStart"
                     Content="Start" 
                     Padding="10" 
@@ -34,19 +36,21 @@
                     VerticalAlignment="Bottom" 
                     Click="ButtonStart_Click" />
 
-            <Label Grid.Row="4"
+            <Label Grid.Row="5"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
                    x:Name="LabelKeyDown" />
 
-            <Button Grid.Row="4" 
+            <Button Grid.Row="5" 
                     x:Name="ButtonStop"
+                    
                     Content="Stop" 
                     Padding="10" 
                     Margin="10"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom" 
-                    Click="ButtonStop_Click"/>
+                    Click="ButtonStop_Click" 
+                    IsEnabled="False"/>
         </Grid>
         <Grid x:Name="GridArena"
               Grid.Column="0" 
