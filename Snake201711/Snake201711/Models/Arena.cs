@@ -61,6 +61,16 @@ namespace Snake201711.Models
             MainWindow = mainWindow;
             SetNewGameCounters();
             ShowGameCounters();
+
+            //var meal = new Meal(10,15);
+            //meal.PeldanyszintuColor = Brushes.Bisque;
+
+            //var meal2 = new Meal(10, 15);
+            //meal2.PeldanyszintuColor = Brushes.Black;
+
+            //Meal.OsztalyszintuColor = Brushes.Beige;
+            //Meal.OsztalyszintuColor = Brushes.Azure;
+
         }
 
         /// <summary>

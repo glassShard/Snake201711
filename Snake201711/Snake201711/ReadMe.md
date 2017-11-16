@@ -148,8 +148,33 @@ public Meal(int x, int y) //paraméterek átvétele az ősosztály konstruktorá
 
 ## Extra alkalom todo
 - [X] Beülni a kígyó fejébe
+- [X] Static magyarázat
 - [ ] Game Over
-- [ ] Static magyarázat
 - [ ] Canvas kezelés (grafikus megoldás)
 
+
+```
+
+                                                  +--------------------+
+                                                  |Osztálypéldány      |
+                                                  |--------------------|
+                                                  | X, Y               |
++--------------------------+                      |                    |
+|  Osztálydefiníció        |+-------------------->| Függvény()         |
+|--------------------------|                      |                    |
+|  (Tervrajz)              |                      |                    |
+|                          |                      +--------------------+
+|                          |
+|                          |
+|  X, Y  (Terv) <-----------+ Példányszintű változó (Instance)
+|                          |                      +--------------------+
+|  Függvény (Terv) <--------+ és függvény         |Osztálypéldány      |
+|                          |                      |--------------------|
+|                          |+-------------------->| X, Y               |
+|  Szín (osztályszintű)    |                      |                    |
+|         STATIC           |                      | Függvény()         |
++--------------------------+                      |                    |
+                                                  |                    |
+                                                  +--------------------+
+```
 

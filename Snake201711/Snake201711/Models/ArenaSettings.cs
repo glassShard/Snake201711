@@ -4,7 +4,6 @@
     {
         /// <summary>
         /// A játékban egyszerre látható ételek száma
-        /// todo: static magyarázat
         /// megjegyzések:
         /// 1. kitöröltem a set-et a kódból: nem lehet módosítani az értékét: csak olvasható
         /// 2. egyből adtam neki értéket
