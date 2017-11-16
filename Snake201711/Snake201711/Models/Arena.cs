@@ -281,13 +281,20 @@ namespace Snake201711.Models
         /// <param name="meal"></param>
         private void RemoveMeal(Meal meal)
         {
-            Meals.Remove(meal);
 
             var child = GetGridArenaCell(meal);
             child.Icon = FontAwesome.WPF.FontAwesomeIcon.SquareOutline;
             child.Foreground = Brushes.Black;
             child.Spin = false;
             child.SpinDuration = 1;
+
+            //meghatározzuk, hányadik ételről beszélünk
+            var index = Meals.IndexOf(meal);
+            //leszedjük a vászonról
+            MainWindow.CanvasArena.Children.RemoveAt(index);
+
+            //végül eltüntetjük a nyilvántartásból
+            Meals.Remove(meal);
 
 
         }
@@ -517,6 +524,7 @@ namespace Snake201711.Models
             if (Snake.GamePoints.Any(gp=>gp.X==newHead.X && gp.Y == newHead.Y))
             { // magába harapott
                 GameOver();
+                IsInShow = false;
                 return; //játék vége, nincs tovább
             }
 
@@ -528,6 +536,7 @@ namespace Snake201711.Models
             if (newHead.X == 0 || newHead.Y == 0 || newHead.X == ArenaSettings.MaxX+1 || newHead.Y == ArenaSettings.MaxY+1)
             { // nekiment a falnak
                 GameOver();
+                IsInShow = false;
                 return; //játék vége, nincs tovább
             }
 
@@ -589,6 +598,7 @@ namespace Snake201711.Models
             PlayTime = TimeSpan.FromSeconds(0);
             Snake = new Snake();
             MainWindow.LabelGameOver.Content = "";
+            ShowGameCounters();
         }
 
         /// <summary>
