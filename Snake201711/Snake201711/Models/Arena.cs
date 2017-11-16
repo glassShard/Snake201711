@@ -447,7 +447,7 @@ namespace Snake201711.Models
             //a lista legelejére. Ha itt adjuk hozzá az új fejet, akkor
             //benne lesz a Snake.GamePoints listában és az étel generálás már 
             //figyelembe veszi.
-            Snake.GamePoints.Insert(0, newHead); //todo: settert implementálni a Snake Head-hez
+            Snake.Head = newHead;
             ShowSnakeHead(newHead);
 
             //le kell elenőrizni, hogy 
@@ -477,7 +477,7 @@ namespace Snake201711.Models
             //ha nem evett, akkor a farok végét eltüntetni
             if (!isEated)
             {
-                var tailEnd = Snake.GamePoints[Snake.GamePoints.Count - 1];
+                var tailEnd = Snake.TailEnd;
                 HideSnakeTail(tailEnd);
                 Snake.GamePoints.Remove(tailEnd);
             }

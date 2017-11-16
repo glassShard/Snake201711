@@ -59,11 +59,23 @@ namespace Snake201711.Models
         /// <summary>
         /// Visszaadja a kígyó fejét
         /// </summary>
+        /// 
+
+        //getter és setter röviden
+        //public GamePoint Head_Get() { }
+        //public void Head_Set(GamePoint value) { };
         public GamePoint Head
         {
+            //getter: függvény, aminek NINCS paramétere és a visszatérési típusa a property típusa
             get
             {
                 return GamePoints[0];
+            }
+
+            //setter: függvény, aminek egy paramétere van, ennek típusa a property típusa, és nincs visszatérési értéke
+            set
+            {
+                GamePoints.Insert(0, value);
             }
         }
 
@@ -75,6 +87,14 @@ namespace Snake201711.Models
             get
             {
                 return GamePoints[1];
+            }
+        }
+
+        public GamePoint TailEnd
+        {
+            get
+            {
+                return GamePoints[GamePoints.Count - 1];
             }
         }
 
@@ -98,5 +118,38 @@ namespace Snake201711.Models
         /// private set: csak osztályon belül használható
         /// 
         /// ráadásul a működése implementálható: saját kóddal adhatjuk meg, hogy mit tegyen
+        /// 
+
+        /// A C# fordító ha nem implementálunk gettert és settert, 
+        /// akkor elfogadja ezt a szintaxist:
+        //public int MyProperty { get; set; }
+
+        /// A fordító ebből egy ilyet csinál (property defoult implementáció
+        //private int _myProperty;
+        //public int MyProperty
+        //{
+        //    get
+        //    {
+        //        return _myProperty;
+        //    }
+        //    set
+        //    {
+        //        _myProperty = value;
+        //    }
+        //}
+
+        ///És ez egyenértékű ezzel:
+        //private int _myProperty;
+        //public int MyProperty_Get()
+        //{
+        //    return _myProperty;
+        //}
+        //public void MyProperty_Set(int value)
+        //{
+        //    _myProperty = value;
+        //}
+
+
+
     }
 }
