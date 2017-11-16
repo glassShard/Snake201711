@@ -273,6 +273,9 @@ namespace Snake201711.Models
             //kirakjuk a vászonra
             MainWindow.CanvasArena.Children.Add(paint);
 
+            //var index = MainWindow.CanvasArena.Children.IndexOf(paint);
+            //meal.CanvasIndex = index;
+
         }
 
         /// <summary>
