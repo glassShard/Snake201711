@@ -55,11 +55,11 @@ namespace Snake201711.Models
         private bool IsInShow=false;
         private bool IsGameInProgress;
 
-        //A vászonra rajzolt kép egységei 
-        private double EllipseWidth = 10;
-        private double EllipseHeight = 10;
+        // vászonra rajzolt kép egységei 
+        private double EllipseWidth;
+        private double EllipseHeight; 
 
-        /// <summary>
+         /// <summary>
         /// Arena konstruktor, létrehozáskor megkapja a megjelenítő ablakot
         /// </summary>
         /// <param name="mainWindow">Az ablak, ami megjeleníti a játék menetét</param>
@@ -68,7 +68,7 @@ namespace Snake201711.Models
             MainWindow = mainWindow;
             SetNewGameCounters();
             ShowGameCounters();
-
+ 
             //var meal = new Meal(10,15);
             //meal.PeldanyszintuColor = Brushes.Bisque;
 
@@ -260,15 +260,15 @@ namespace Snake201711.Models
             //létrehozzuk
             var paint = new Ellipse();
 
+            SetEllipseSize(paint);
+
             //megformázzuk
             paint.Fill = Brushes.OrangeRed;
             //todo: a méretezést a képernyőhöz igazítani
-            paint.Height = EllipseHeight;
-            paint.Width = EllipseWidth;
-
+            
             //összehangoljuk a vászonnal
-            Canvas.SetTop(paint, meal.Y * EllipseHeight);
-            Canvas.SetLeft(paint, meal.X * EllipseWidth);
+            Canvas.SetTop(paint, (meal.Y - 1) * EllipseHeight);
+            Canvas.SetLeft(paint, (meal.X - 1) * EllipseWidth);
 
             //kirakjuk a vászonra
             MainWindow.CanvasArena.Children.Add(paint);
@@ -276,6 +276,28 @@ namespace Snake201711.Models
             //var index = MainWindow.CanvasArena.Children.IndexOf(paint);
             //meal.CanvasIndex = index;
 
+        }
+
+        private void SetEllipseSize(Ellipse paint)
+        {
+            EllipseWidth = MainWindow.CanvasArena.ActualWidth / ArenaSettings.MaxX;
+            EllipseHeight = MainWindow.CanvasArena.ActualHeight / ArenaSettings.MaxY;
+            paint.Height = EllipseHeight;
+            paint.Width = EllipseWidth;
+        }
+
+        internal void ResizeCanvasElements(double widthRatio, double heightRatio)
+        {
+            foreach (Ellipse element in MainWindow.CanvasArena.Children)
+            {
+                double top = Canvas.GetTop(element);
+                double left = Canvas.GetLeft(element);
+
+                SetEllipseSize(element);
+
+                Canvas.SetTop(element, top * heightRatio);
+                Canvas.SetLeft(element, left * widthRatio);
+            }
         }
 
         /// <summary>

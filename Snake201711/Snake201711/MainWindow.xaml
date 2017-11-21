@@ -19,7 +19,7 @@
                 Background="AntiqueWhite" 
                 Margin="10"
                 HorizontalAlignment="Stretch" 
-                VerticalAlignment="Stretch" />
+                VerticalAlignment="Stretch" SizeChanged="CanvasArena_SizeChanged" />
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
