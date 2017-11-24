@@ -159,7 +159,7 @@ namespace Snake201711.Models
 
             //A kígyó fejét megjelenítjük
             
-            ShowSnakeHead(head, Brushes.Green);
+            Snake.Head.CanvasIndex = ShowSnakeElem(head, Brushes.Green);
 
             for (int i = 0; i < ArenaSettings.SnakeCountForStart; i++)
             {
@@ -173,7 +173,8 @@ namespace Snake201711.Models
                     gamePoint = new GamePoint(head.X - i - 1, head.Y);
                 }
                 Snake.GamePoints.Add(gamePoint);
-                ShowSnakeTail(gamePoint);
+                
+                gamePoint.CanvasIndex = ShowSnakeElem(gamePoint, Brushes.Blue);
             }
         }
 
@@ -346,7 +347,7 @@ namespace Snake201711.Models
         /// A kígyó fejének megjelenítése
         /// </summary>
         /// <param name="head"></param>
-        private void ShowSnakeHead(GamePoint head, SolidColorBrush color)
+        private int ShowSnakeElem(GamePoint head, SolidColorBrush color)
         {
             var child = GetGridArenaCell(head);
             child.Icon = FontAwesome.WPF.FontAwesomeIcon.Circle;
@@ -356,7 +357,7 @@ namespace Snake201711.Models
 
             SetEllipseSize(paint);
 
-            paint.Fill = Brushes.Green;
+            paint.Fill = color;
 
             Canvas.SetTop(paint, (head.Y - 1) * EllipseHeight); 
             Canvas.SetLeft(paint, (head.X - 1) * EllipseWidth);
@@ -364,31 +365,8 @@ namespace Snake201711.Models
             MainWindow.CanvasArena.Children.Add(paint);
 
             var index = MainWindow.CanvasArena.Children.IndexOf(paint);
-            Snake.Head.CanvasIndex = index;
-        }
 
-        /// <summary>
-        /// A kígyó farkának megjelenítése
-        /// </summary>
-        private void ShowSnakeTail(GamePoint tail)
-        {
-            var child = GetGridArenaCell(tail);
-            child.Icon = FontAwesome.WPF.FontAwesomeIcon.Circle;
-            child.Foreground = Brushes.Blue;
-
-            var paint = new Ellipse();
-
-            SetEllipseSize(paint);
-
-            paint.Fill = Brushes.Blue;
-
-            Canvas.SetTop(paint, (tail.Y - 1) * EllipseHeight);
-            Canvas.SetLeft(paint, (tail.X - 1) * EllipseWidth);
-
-            MainWindow.CanvasArena.Children.Add(paint);
-
-            var index = MainWindow.CanvasArena.Children.IndexOf(paint);
-            tail.CanvasIndex = index;
+            return index;
         }
 
         /// <summary>
@@ -619,7 +597,8 @@ namespace Snake201711.Models
             //benne lesz a Snake.GamePoints listában és az étel generálás már 
             //figyelembe veszi.
             Snake.Head = newHead;
-            ShowSnakeHead(newHead, Brushes.Green);
+            var index = ShowSnakeElem(newHead, Brushes.Green);
+            Snake.Head.CanvasIndex = index;
 
             //le kell elenőrizni, hogy 
             //megettünk-e ételt?
@@ -643,8 +622,9 @@ namespace Snake201711.Models
             //megjeleníteni a kígyó új helyzetét
             //régi fej már farok, hiszen a kígyó továbbcsúszott
             RemoveElementFromCanvas(Snake.Neck);
-            ShowSnakeTail(oldHead);
             
+            oldHead.CanvasIndex = ShowSnakeElem(oldHead, Brushes.Blue);
+
 
             //ha nem evett, akkor a farok végét eltüntetni
             if (!isEated)
