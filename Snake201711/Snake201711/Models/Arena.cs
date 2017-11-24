@@ -274,8 +274,7 @@ namespace Snake201711.Models
             //kirakjuk a vászonra
             MainWindow.CanvasArena.Children.Add(paint);
 
-            var index = MainWindow.CanvasArena.Children.IndexOf(paint);
-            meal.CanvasIndex = index;
+            meal.CanvasIndex = MainWindow.CanvasArena.Children.IndexOf(paint);
 
         }
 
@@ -289,15 +288,43 @@ namespace Snake201711.Models
 
         internal void ResizeCanvasElements(double widthRatio, double heightRatio)
         {
-            foreach (Ellipse element in MainWindow.CanvasArena.Children)
+            if (widthRatio == 0 || heightRatio == 0)
             {
-                double top = Canvas.GetTop(element);
-                double left = Canvas.GetLeft(element);
+                foreach (Ellipse element in MainWindow.CanvasArena.Children)
+                {
+                    var index = MainWindow.CanvasArena.Children.IndexOf(element);
+                    if (element.Fill == Brushes.OrangeRed)
+                    {                        
+                        Meals.Find(x => x.CanvasIndex == index);
 
-                SetEllipseSize(element);
+                        SetEllipseSize(element);
 
-                Canvas.SetTop(element, top * heightRatio);
-                Canvas.SetLeft(element, left * widthRatio);
+                        Canvas.SetTop(element, (Meals.Find(x => x.CanvasIndex == index).Y - 1) * EllipseHeight);
+                        Canvas.SetLeft(element, (Meals.Find(x => x.CanvasIndex == index).X - 1) * EllipseWidth);
+                    }
+                    else
+                    {
+                        Snake.GamePoints.Find(x => x.CanvasIndex == index);
+
+                        SetEllipseSize(element);
+
+                        Canvas.SetTop(element, (Snake.GamePoints.Find(x => x.CanvasIndex == index).Y - 1) * EllipseHeight);
+                        Canvas.SetLeft(element, (Snake.GamePoints.Find(x => x.CanvasIndex == index).X - 1) * EllipseWidth);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Ellipse element in MainWindow.CanvasArena.Children)
+                {
+                    double top = Canvas.GetTop(element);
+                    double left = Canvas.GetLeft(element);
+
+                    SetEllipseSize(element);
+
+                    Canvas.SetTop(element, top * heightRatio);
+                    Canvas.SetLeft(element, left * widthRatio);
+                }
             }
         }
 

@@ -68,9 +68,19 @@ namespace Snake201711
 
         private void CanvasArena_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            double widthRatio = e.NewSize.Width / e.PreviousSize.Width;
-            double heightRatio = e.NewSize.Height / e.PreviousSize.Height;
-            
+            double widthRatio;
+            double heightRatio;
+
+            if (e.PreviousSize.Width == 0 || e.PreviousSize.Height == 0)
+            {
+                widthRatio = 0;
+                heightRatio = 0;
+            }
+            else
+            {
+                widthRatio = e.NewSize.Width / e.PreviousSize.Width;
+                heightRatio = e.NewSize.Height / e.PreviousSize.Height;
+            }
             Arena.ResizeCanvasElements(widthRatio, heightRatio);
         }
     }
