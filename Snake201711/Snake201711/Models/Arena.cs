@@ -255,9 +255,7 @@ namespace Snake201711.Models
 
             //hozzáadni a listához
             Meals.Add(meal);
-
-            //Kirakjuk a Canvas-ra is
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////
             //létrehozzuk
             var paint = new Ellipse();
 
@@ -265,7 +263,6 @@ namespace Snake201711.Models
 
             //megformázzuk
             paint.Fill = Brushes.OrangeRed;
-            //todo: a méretezést a képernyőhöz igazítani
             
             //összehangoljuk a vászonnal
             Canvas.SetTop(paint, (meal.Y - 1) * EllipseHeight);
@@ -275,7 +272,7 @@ namespace Snake201711.Models
             MainWindow.CanvasArena.Children.Add(paint);
 
             meal.CanvasIndex = MainWindow.CanvasArena.Children.IndexOf(paint);
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 
         private void SetEllipseSize(Ellipse paint)
@@ -624,8 +621,8 @@ namespace Snake201711.Models
             //benne lesz a Snake.GamePoints listában és az étel generálás már 
             //figyelembe veszi.
             Snake.Head = newHead;
-            var index = ShowSnakeElem(newHead, Brushes.Green);
-            Snake.Head.CanvasIndex = index;
+
+            Snake.Head.CanvasIndex = ShowSnakeElem(newHead, Brushes.Green);
 
             //le kell elenőrizni, hogy 
             //megettünk-e ételt?
