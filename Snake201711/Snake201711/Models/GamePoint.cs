@@ -1,4 +1,4 @@
-﻿namespace Snake201711.Models
+﻿ namespace Snake201711.Models
 {
     /// <summary>
     /// A játéktáblán egy (étel vagy kígyó) pontot jelképező egység
@@ -14,5 +14,6 @@
 
         public int X { get; set; }
         public int Y { get; set; }
+        public int CanvasIndex { get; set; }
     }
 }
